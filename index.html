@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etéreo - Monitoreo Ambiental Inteligente</title>
+    
+    <link rel="icon" type="image/png" href="image_5.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
         :root {
             --primary: #7c3aed; 
@@ -34,13 +38,15 @@
             width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid var(--border);
         }
 
-        .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 8px; background: linear-gradient(to right, #a78bfa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-logo-link { text-decoration: none; }
+        .logo-img { height: 40px; vertical-align: middle; }
 
         .nav-links a { color: var(--light); text-decoration: none; margin-left: 2rem; font-size: 0.9rem; opacity: 0.8; transition: 0.3s; display: inline-flex; align-items: center; gap: 5px; }
         .nav-links a:hover { opacity: 1; color: var(--secondary); }
 
         section { padding: 100px 10%; }
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero-logo { height: 120px; margin-bottom: 2rem; }
         .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
         
         .dashboard-container {
@@ -55,7 +61,6 @@
             border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
         }
         .stat-card i { color: var(--secondary); margin-bottom: 10px; }
-
         .stat-card h4 { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .stat-card .value { font-size: 2rem; font-weight: 700; color: #fff; }
 
@@ -80,7 +85,8 @@
     <div class="bg-gradient"></div>
 
     <nav>
-        <div class="logo"><i data-lucide="wind"></i> ETÉREO</div>
+        <a href="#inicio" class="nav-logo-link">
+            <img src="image_3.png" alt="Etéreo Logo" class="logo-img"> </a>
         <div class="nav-links">
             <a href="#inicio"><i data-lucide="home"></i> Inicio</a>
             <a href="#monitoreo"><i data-lucide="activity"></i> Monitoreo</a>
@@ -91,7 +97,7 @@
     </nav>
 
     <section class="hero" id="inicio">
-        <h1>El Futuro del <span style="color: var(--secondary)">Aire</span> es Digital.</h1>
+        <img src="image_3.png" alt="Etéreo Logo" class="hero-logo"> <h1>El Futuro del <span style="color: var(--secondary)">Aire</span> es Digital.</h1>
         <p>Software y Hardware desarrollado por estudiantes para el monitoreo ambiental preventivo.</p>
         <a href="#monitoreo" class="btn">Explorar Datos <i data-lucide="arrow-right"></i></a>
     </section>
