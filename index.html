@@ -3,204 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etéreo - Innovación en Monitoreo Ambiental</title>
+    <title>Etéreo - Monitoreo Ambiental Inteligente</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary: #7c3aed; /* Violeta moderno */
-            --secondary: #10b981; /* Verde ambiental */
+            --primary: #7c3aed; 
+            --secondary: #10b981; 
+            --accent: #3b82f6;
             --dark: #0f172a;
             --light: #f8fafc;
             --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--dark); color: var(--light); line-height: 1.6; overflow-x: hidden; }
 
-        body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Fondo Animado sutil */
+        /* Fondo Animado */
         .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 40%),
                         radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
             z-index: -1;
         }
 
-        /* Navegación */
         nav {
-            padding: 1.5rem 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem 10%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); position: fixed;
+            width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid var(--border);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #a78bfa, #34d399);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo { font-size: 1.5rem; font-weight: 700; background: linear-gradient(to right, #a78bfa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .nav-links a { color: var(--light); text-decoration: none; margin-left: 2rem; font-size: 0.9rem; opacity: 0.8; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--secondary); }
+
+        section { padding: 100px 10%; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero p { font-size: 1.2rem; max-width: 700px; color: #94a3b8; margin-bottom: 2.5rem; }
+
+        /* Estilos del Dashboard */
+        .dashboard-container {
+            background: var(--glass); border: 1px solid var(--border); border-radius: 32px; padding: 2rem;
+            margin-top: 2rem; backdrop-filter: blur(10px);
         }
 
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            margin-left: 2rem;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-            opacity: 0.8;
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;
         }
 
-        .nav-links a:hover {
-            opacity: 1;
-            color: var(--secondary);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 10%;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            color: #94a3b8;
-            margin-bottom: 2.5rem;
-        }
-
-        .btn {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
-        }
-
-        /* Secciones Generales */
-        section {
-            padding: 100px 10%;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        /* Grid de Servicios/Equipo */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--glass);
-            padding: 2.5rem;
-            border-radius: 24px;
+        .stat-card {
+            background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 20px; text-align: center;
             border: 1px solid rgba(255,255,255,0.05);
-            transition: border 0.3s;
         }
 
-        .card:hover {
-            border-color: var(--primary);
-        }
+        .stat-card h4 { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .stat-card .value { font-size: 2rem; font-weight: 700; color: var(--secondary); }
 
-        .card h3 {
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
+        .chart-wrapper { width: 100%; height: 300px; margin-top: 1rem; }
 
-        /* Contact Form */
-        .contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--glass);
-            padding: 3rem;
-            border-radius: 32px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        /* Grid de Equipo y Misión */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .card { background: var(--glass); padding: 2.5rem; border-radius: 24px; border: 1px solid var(--border); transition: 0.3s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card h3 { color: var(--secondary); margin-bottom: 1rem; }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
+        /* Formulario */
+        .contact-container { max-width: 600px; margin: 0 auto; background: var(--glass); padding: 3rem; border-radius: 32px; border: 1px solid var(--border); }
+        .form-group { margin-bottom: 1.5rem; }
+        input, textarea { width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: white; }
+        .btn { background: var(--primary); color: white; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s; }
+        .btn:hover { box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3); transform: translateY(-2px); }
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: white;
-            outline: none;
-        }
-
-        input:focus, textarea:focus {
-            border-color: var(--primary);
-        }
-
-        footer {
-            padding: 3rem 10%;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: #64748b;
-            font-size: 0.8rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            section { padding: 60px 5%; }
-        }
+        footer { padding: 3rem 10%; text-align: center; border-top: 1px solid var(--border); color: #64748b; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -211,6 +88,7 @@
         <div class="logo">ETÉREO</div>
         <div class="nav-links">
             <a href="#inicio">Inicio</a>
+            <a href="#monitoreo">Monitoreo</a>
             <a href="#mision">Misión</a>
             <a href="#equipo">Equipo</a>
             <a href="#contacto">Contacto</a>
@@ -218,72 +96,134 @@
     </nav>
 
     <section class="hero" id="inicio">
-        <h1>Monitoreo Ambiental <br><span style="color: var(--secondary)">en tiempo real.</span></h1>
-        <p>Integrando tecnología avanzada de sensores y análisis de datos para proteger nuestro entorno y construir un futuro sostenible.</p>
-        <a href="#contacto" class="btn">Explorar Soluciones</a>
+        <h1>El Futuro del <span style="color: var(--secondary)">Aire</span> es Digital.</h1>
+        <p>Software y Hardware desarrollado por estudiantes para el monitoreo ambiental preventivo.</p>
+        <a href="#monitoreo" class="btn">Ver Datos en Vivo</a>
+    </section>
+
+    <section id="monitoreo">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Panel de Control Etéreo</h2>
+        <div class="dashboard-container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Temperatura</h4>
+                    <div class="value" id="temp-val">24°C</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Humedad</h4>
+                    <div class="value" id="hum-val">65%</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Calidad Aire (CO2)</h4>
+                    <div class="value" id="co2-val">412 ppm</div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="liveChart"></canvas>
+            </div>
+        </div>
     </section>
 
     <section id="mision">
         <h2>Nuestra Misión</h2>
         <div class="grid">
             <div class="card">
-                <h3>Visión</h3>
-                <p>Ser líderes en la prevención de riesgos ambientales mediante el uso inteligente de hardware y software de código abierto.</p>
+                <h3>Impacto Social</h3>
+                <p>Brindar a las comunidades herramientas accesibles para detectar riesgos atmosféricos antes de que se conviertan en crisis.</p>
             </div>
             <div class="card">
-                <h3>Valores</h3>
-                <p>Compromiso con la transparencia de datos, la innovación constante y la educación de las nuevas generaciones.</p>
+                <h3>Innovación Abierta</h3>
+                <p>Utilizamos ESP32 y sensores de alta precisión para democratizar el acceso a la información ambiental.</p>
             </div>
         </div>
     </section>
 
     <section id="equipo">
-        <h2>El Equipo Gen Z</h2>
+        <h2>Liderazgo Generación Z</h2>
         <div class="grid">
             <div class="card">
                 <h3>María Ignacia Martínez</h3>
-                <p>Estrategia financiera y sostenibilidad del proyecto.</p>
+                <p>Estrategia Financiera</p>
             </div>
             <div class="card">
                 <h3>Stefanis Acosta</h3>
-                <p>CTO - Arquitectura tecnológica y desarrollo de sistemas.</p>
+                <p>Dirección Tecnológica</p>
             </div>
             <div class="card">
                 <h3>Diego Querales</h3>
-                <p>CMO - Estrategia de impacto social y comunicación.</p>
+                <p>Estrategia de Impacto</p>
             </div>
         </div>
     </section>
 
     <section id="contacto">
-        <h2>Escríbenos</h2>
         <div class="contact-container">
+            <h2 style="margin-bottom: 1.5rem;">Contáctanos</h2>
             <form name="contacto-etereo" method="POST" data-netlify="true">
                 <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" name="name" placeholder="Tu nombre" required>
+                    <input type="text" name="name" placeholder="Nombre completo" required>
                 </div>
                 <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" name="email" placeholder="tu@correo.com" required>
+                    <input type="email" name="email" placeholder="Correo electrónico" required>
                 </div>
                 <div class="form-group">
-                    <label>Mensaje</label>
-                    <textarea name="message" rows="5" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                    <textarea name="message" rows="4" placeholder="Tu mensaje..." required></textarea>
                 </div>
-                <button type="submit" class="btn" style="width: 100%; border: none; cursor: pointer;">Enviar Mensaje</button>
+                <button type="submit" class="btn" style="width: 100%;">Enviar Consulta</button>
             </form>
-            
-            <div style="margin-top: 2rem; text-align: center; color: #94a3b8;">
-                <p>O directamente a:</p>
-                <p><strong>[TU_CORREO_AQUÍ]</strong></p> </div>
+            <p style="margin-top: 1.5rem; text-align: center; color: #64748b;">o escribe a: [TU_CORREO_AQUÍ]</p>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Etéreo - Innovación Ambiental</p>
-        <p>Colegio Ángel de la Guarda - Venezuela</p>
+        <p>&copy; 2026 Proyecto Etéreo - Colegio Ángel de la Guarda</p>
+        <p>Venezuela | Innovación Juvenil para el Mundo</p>
     </footer>
 
+    <script>
+        // Lógica del Gráfico en Vivo
+        const ctx = document.getElementById('liveChart').getContext('2d');
+        let dataPoints = [400, 405, 410, 408, 415, 412, 420];
+        
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['10:00', '10:05', '10:10', '10:15', '10:20', '10:25', '10:30'],
+                datasets: [{
+                    label: 'Niveles de CO2 (ppm)',
+                    data: dataPoints,
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } },
+                    x: { grid: { display: false }, ticks: { color: '#64748b' } }
+                }
+            }
+        });
+
+        // Simulación de cambio de datos cada 3 segundos
+        setInterval(() => {
+            const newCO2 = Math.floor(400 + Math.random() * 50);
+            const newTemp = Math.floor(22 + Math.random() * 5);
+            const newHum = Math.floor(60 + Math.random() * 10);
+
+            document.getElementById('co2-val').innerText = newCO2 + " ppm";
+            document.getElementById('temp-val').innerText = newTemp + "°C";
+            document.getElementById('hum-val').innerText = newHum + "%";
+
+            chart.data.datasets[0].data.push(newCO2);
+            chart.data.datasets[0].data.shift();
+            chart.update();
+        }, 3000);
+    </script>
 </body>
 </html>
