@@ -1,4 +1,3 @@
-<!-- Creado por GiovannyAl -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -47,7 +46,7 @@
 
         section { padding: 100px 10%; }
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero-logo { height: 120px; margin-bottom: 2rem; }
+        .hero-logo { height: 120px; margin-bottom: 2rem; object-fit: contain; }
         .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
         
         .dashboard-container {
@@ -65,14 +64,29 @@
         .stat-card h4 { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .stat-card .value { font-size: 2rem; font-weight: 700; color: #fff; }
 
+        /* Estilo unificado para Grids de Tarjetas */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .card { background: var(--glass); padding: 2.5rem; border-radius: 24px; border: 1px solid var(--border); transition: 0.3s; }
+        .card { 
+            background: var(--glass); 
+            padding: 2.5rem; 
+            border-radius: 24px; 
+            border: 1px solid var(--border); 
+            transition: 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
         .card i { color: var(--primary); margin-bottom: 1.5rem; }
         .card h3 { color: var(--secondary); margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+        .card ul { list-style: none; margin-top: 1rem; }
+        .card ul li { margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: #cbd5e1; }
+
+        .section-title { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: white; }
+        .section-subtitle { text-align: center; margin-bottom: 3rem; color: var(--secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
 
         .contact-container { max-width: 600px; margin: 0 auto; background: var(--glass); padding: 3rem; border-radius: 32px; border: 1px solid var(--border); }
         .form-group { margin-bottom: 1.5rem; position: relative; }
-        input, textarea { width: 100%; padding: 1rem; padding-left: 3rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: white; }
+        input, textarea { width: 100%; padding: 1rem; padding-left: 3rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: white; outline: none; }
+        input:focus, textarea:focus { border-color: var(--primary); }
         .form-group i { position: absolute; left: 1rem; top: 1.1rem; color: #64748b; }
         
         .btn { background: var(--primary); color: white; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; }
@@ -87,24 +101,27 @@
 
     <nav>
         <a href="#inicio" class="nav-logo-link">
-            <img src="image_3.png" alt="Etéreo Logo" class="logo-img"> </a>
+            <img src="image_3.png" alt="Etéreo Logo" class="logo-img"> 
+        </a>
         <div class="nav-links">
             <a href="#inicio"><i data-lucide="home"></i> Inicio</a>
             <a href="#monitoreo"><i data-lucide="activity"></i> Monitoreo</a>
             <a href="#mision"><i data-lucide="target"></i> Misión</a>
+            <a href="#solucion"><i data-lucide="shield-check"></i> Solución</a>
             <a href="#equipo"><i data-lucide="users"></i> Equipo</a>
             <a href="#contacto"><i data-lucide="mail"></i> Contacto</a>
         </div>
     </nav>
 
     <section class="hero" id="inicio">
-        <img src="image_5.png" alt="Etéreo Logo" class="hero-logo" width="300" height="100"> <h1>El Futuro del <span style="color: var(--secondary)">Ambiente</span> es Digital.</h1>
+        <img src="image_5.png" alt="Etéreo Logo" class="hero-logo"> 
+        <h1>El Futuro del <span style="color: var(--secondary)">Ambiente</span> es Digital.</h1>
         <p>Software y Hardware desarrollado por estudiantes para el monitoreo ambiental preventivo.</p>
         <a href="#monitoreo" class="btn">Explorar Datos <i data-lucide="arrow-right"></i></a>
     </section>
 
     <section id="monitoreo">
-        <h2 style="text-align: center; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 15px;">
+        <h2 class="section-title">
             <i data-lucide="layout-dashboard" style="color: var(--primary)"></i> Panel de Control Etéreo
         </h2>
         <div class="dashboard-container">
@@ -120,7 +137,7 @@
                     <div class="value" id="hum-val">65%</div>
                 </div>
                 <div class="stat-card">
-                    <i data-lucide="leaf"></i>
+                    <i data-lucide="wind"></i>
                     <h4>Calidad Aire</h4>
                     <div class="value" id="co2-val">412 ppm</div>
                 </div>
@@ -132,9 +149,10 @@
     </section>
 
     <section id="mision">
+        <h2 class="section-title">Nuestra Misión</h2>
         <div class="grid">
             <div class="card">
-                <i data-lucide="shield-check" size="40"></i>
+                <i data-lucide="users" size="40"></i>
                 <h3>Impacto Social</h3>
                 <p>Herramientas accesibles para detectar riesgos atmosféricos antes de que se conviertan en crisis en nuestras comunidades.</p>
             </div>
@@ -145,33 +163,38 @@
             </div>
         </div>
     </section>
+
     <section id="solucion">
-    <div class="container">
-        <h2>Nuestra solución: Etéreo-Guard</h2>
+        <h2 class="section-title">Etéreo-Guard</h2>
         <p class="section-subtitle">Nodos especializados por entorno</p>
         
-        <div class="solution-grid">
-            <div class="solution-card">
-                <h3>Nodos de agua</h3>
+        <div class="grid">
+            <div class="card">
+                <i data-lucide="waves" size="40"></i>
+                <h3>Nodos de Agua</h3>
+                <p>Monitoreo profundo en ecosistemas acuáticos.</p>
                 <ul>
-                    <li>Sensor de pH (Acidez)</li>
-                    <li>Niveles de Oxígeno</li>
-                    <li>Temperatura del agua</li>
+                    <li><i data-lucide="check-circle" size="16"></i> Sensor de pH (Acidez)</li>
+                    <li><i data-lucide="check-circle" size="16"></i> Niveles de Oxígeno</li>
+                    <li><i data-lucide="check-circle" size="16"></i> Temperatura del agua</li>
                 </ul>
             </div>
-            <div class="solution-card">
-                <h3>Nodos ambientales (Aire)</h3>
+            
+            <div class="card">
+                <i data-lucide="cloud-lightning" size="40"></i>
+                <h3>Nodos de Aire</h3>
+                <p>Prevención atmosférica y salud comunitaria.</p>
                 <ul>
-                    <li>Humedad Relativa</li>
-                    <li>Sensores de Gas (VOC)</li>
-                    <li>Calidad del aire</li>
+                    <li><i data-lucide="check-circle" size="16"></i> Humedad Relativa</li>
+                    <li><i data-lucide="check-circle" size="16"></i> Sensores de Gas (VOC)</li>
+                    <li><i data-lucide="check-circle" size="16"></i> Calidad del aire</li>
                 </ul>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
     <section id="equipo">
-        <h2 style="text-align: center; margin-bottom: 3rem;"><i data-lucide="award"></i> Liderazgo Etéreo</h2>
+        <h2 class="section-title"><i data-lucide="award"></i> Liderazgo Etéreo</h2>
         <div class="grid">
             <div class="card" style="text-align: center;">
                 <i data-lucide="user"></i>
@@ -192,8 +215,6 @@
     </section>
 
     <section id="contacto">
-       
-
         <div class="contact-container">
             <h2 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 10px;">
                 <i data-lucide="message-square"></i> Hablemos
@@ -244,11 +265,21 @@
             options: {
                 responsive: true, maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
-                scales: { y: { display: false }, x: { ticks: { color: '#64748b' } } }
+                scales: { 
+                    y: { 
+                        display: true, 
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#64748b' }
+                    }, 
+                    x: { 
+                        grid: { display: false },
+                        ticks: { color: '#64748b' } 
+                    } 
+                }
             }
         });
 
-        // Actualización en tiempo real
+        // Actualización simulada
         setInterval(() => {
             const val = Math.floor(400 + Math.random() * 40);
             document.getElementById('co2-val').innerText = val + " ppm";
